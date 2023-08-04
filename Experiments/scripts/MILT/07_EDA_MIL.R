@@ -1,5 +1,5 @@
 ################################################################################
-################################## DR SbIII EDA ##################################
+################################## DR MIL EDA ##################################
 ################################################################################
 
 # Packages
@@ -8,54 +8,43 @@ library(ggplot2)
 
 
 # Loading data
-DataSbIII <- read.csv(file = 
-                        "Experiments/Data/processed/EXP_full_SbIII_corrected.csv")
-
-# Removing irrelevant clones data
-
-DataSbIII <- DataSbIII%>%
-  filter(!grepl("C76", pop))
-
-
-DataSbIII<- DataSbIII%>%
-  filter(!grepl("C89", pop))
-
-DataSbIII<- DataSbIII%>%
-  filter(!grepl("THP-1", pop))
+DataMIL <-  read.csv(file = 
+                       "Experiments/Data/processed/DataMIL_processed_normalized.csv",
+                     header = TRUE, sep =",")
 
 
 # Checking variables
-sapply(DataSbIII, class)
-DataSbIII$conc <- as.factor(DataSbIII$conc)
-DataSbIII$pop <- as.factor(DataSbIII$pop)
-DataSbIII$experiment <- as.factor(DataSbIII$experiment)
-sapply(DataSbIII, class)
+sapply(DataMIL, class)
+DataMIL$conc <- as.factor(DataMIL$conc)
+DataMIL$pop <- as.factor(DataMIL$pop)
+DataMIL$experiment <- as.factor(DataMIL$experiment)
+sapply(DataMIL, class)
 
 # Dose response - amastigotes accounts for each conc
 
-AmaPcellplot <- ggplot(DataSbIII, aes(fill= conc,
-                                      y = ama_per_cell,
-                                      x = pop))+
+AmaPcellplot <- ggplot(DataMIL, aes(fill= conc,
+                                    y = viability_normalized,
+                                    x = pop))+
   geom_bar(position = "dodge", stat = "identity")+
   ggtitle("Nº of amastigote per cell SbIII dosage in different populations") +
-  labs(x = " Populations ", y = "Nº of cells")+
+  labs(x = " Conc [   ] μM ", y = "Nº of cells")+
   theme(plot.title = element_text(size = 14,face="bold"),
         axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10),
         axis.title.x = element_text(size = 15),
         axis.title.y = element_text(size = 15))+
-  facet_wrap(DataSbIII$experiment)+
-  theme_bw()
+  facet_wrap(DataMIL$experiment)
+theme_bw()
 AmaPcellplot
 
-ggsave("Experiments/figs/01_AmaPcellplot_SbIII.jpg")
+ggsave("Experiments/figs/04_AmaPcellplot_MIL.jpg")
 
 # Lines
 
-lineplot <- ggplot(DataSbIII, aes(y = ama_per_cell, x = conc, group = pop))+
+lineplot <- ggplot(DataMIL, aes(y = viability_normalized, x = conc, group = pop))+
   geom_line(aes(color = pop))+
   ggtitle("Dose response pattern for different SbIII concentrations") +
-  labs(x = " Populations ", y = "Nº of cells")+
+  labs(x = " Conc [   ] μM ", y = "Nº of cells")+
   theme(plot.title = element_text(size = 14,face="bold"),
         axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10),
@@ -65,24 +54,24 @@ lineplot <- ggplot(DataSbIII, aes(y = ama_per_cell, x = conc, group = pop))+
   theme_bw()
 lineplot
 
-ggsave("Experiments/figs/02_AmaPcellplot_SbIII.jpg")
+ggsave("Experiments/figs/05_AmaPcellplot_MIL.jpg")
 
 # Summarized
 
-EXP_sum <- DataSbIII%>%
+EXP_sum <- DataMIL%>%
   group_by(conc,pop)%>%
-  summarise(mean_value = mean(ama_per_cell), sd_value = sd(ama_per_cell) )
+  summarise(mean_value = mean(viability_normalized), sd_value = sd(ama_per_cell) )
 
 lineplot_sum <- ggplot(EXP_sum, aes(y = mean_value, x = conc, group = pop))+
   geom_line(aes(color = EXP_sum$pop))+
-  ggtitle("Dose response pattern for different SbIII concentrations") +
-  labs(x = " Populations ", y = "Nº of cells")+
+  ggtitle("Dose response pattern for different MIL concentrations") +
+  labs(x = " Conc [   ] μM ", y = "Nº of cells")+
   theme(plot.title = element_text(size = 14,face="bold"),
         axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10),
         axis.title.x = element_text(size = 15),
         axis.title.y = element_text(size = 15))+
   theme_bw()
-lineplot_sum
+lineplot_sum+  labs(color = "Populations")
 
-ggsave("Experiments/figs/03_AmaPcellplot_SbIII.jpg")
+ggsave("Experiments/figs/06_AmaPcellplot_MIL.jpg")

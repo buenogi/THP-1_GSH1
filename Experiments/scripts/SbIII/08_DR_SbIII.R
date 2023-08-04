@@ -1,5 +1,5 @@
 ################################################################################
-################ SbIII promastigote Dose-response analisys #####################
+################## SbIIIT amastigote Dose-response analisys #####################
 ################################################################################
 
 library(dplyr)
@@ -8,34 +8,34 @@ library(drc)
 
 # Loading data 
 
-DataANF<- read.csv(file = "Experiments/Data/processed/DataANF_processed_normalized.csv", 
-                   header = TRUE, sep = ,)
+DataSbIII<- read.csv(file = "Experiments/Data/processed/DataSbIII_processed_normalized.csv", 
+                     header = TRUE, sep = ,)
 
 # Checking data
-head(DataANF)
-sapply(DataANF, class)
-DataANF$experiment <- as.factor(DataANF$experiment)
-sapply(DataANF, class)
+head(DataSbIII)
+sapply(DataSbIII, class)
+DataSbIII$experiment <- as.factor(DataSbIII$experiment)
+sapply(DataSbIII, class)
 
 # Adding mean values
 
-sum_values <- DataANF%>%
+sum_values <- DataSbIII%>%
   group_by(conc,pop)%>%
   summarise(mean_value_res = mean(viability_normalized), 
             sd_value_res = sd(viability_normalized))
 
-DataANF_SUM <- full_join(DataANF, sum_values, by = c("conc", "pop"))
+DataSbIII_SUM <- full_join(DataSbIII, sum_values, by = c("conc", "pop"))
 
 
 #Splitting populations
-REF <- filter(DataANF_SUM, pop == "REF")
-C6 <- filter(DataANF_SUM, pop == "C6")
-C7 <- filter(DataANF_SUM, pop == "C7")
-C44 <- filter(DataANF_SUM, pop == "C44")
-C58 <- filter(DataANF_SUM, pop == "C58")
-C67 <- filter(DataANF_SUM, pop == "C67")
-C73 <- filter(DataANF_SUM, pop == "C73")
-C85 <- filter(DataANF_SUM, pop == "C85")
+REF <- filter(DataSbIII_SUM, pop == "REF")
+C6 <- filter(DataSbIII_SUM, pop == "C6")
+C7 <- filter(DataSbIII_SUM, pop == "C7")
+C44 <- filter(DataSbIII_SUM, pop == "C44")
+C58 <- filter(DataSbIII_SUM, pop == "C58")
+C67 <- filter(DataSbIII_SUM, pop == "C67")
+C73 <- filter(DataSbIII_SUM, pop == "C73")
+C85 <- filter(DataSbIII_SUM, pop == "C85")
 
 # Adjusting the models
 
@@ -175,7 +175,7 @@ DoseResponseCurves_01 <- ggplot() +
   geom_line(data = newdata_C73, aes(x = log(conc, 10), y =newdata_C73$viability_normalized )) +
   geom_point(data = C85, aes(x = log(conc, 10), y = viability_normalized)) +
   geom_line(data = newdata_C85, aes(x = log(conc, 10), y = newdata_C85$viability_normalized))+
-  ggtitle("Amastigotes dose response to ANF") +
+  ggtitle("Amastigotes dose response to SbIII") +
   labs(x = "Log10 [ ] μM", y = "Infection (%)") +
   theme_bw() +
   theme(
@@ -230,7 +230,7 @@ DoseResponseCurves02_error <- ggplot() +
   geom_errorbar(data = C67, aes(x = log(conc, 10),
                                 ymin = mean_value_res - sd_value_res/sqrt(4),
                                 ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
-  ggtitle("Amastigotes dose response to ANF") +
+  ggtitle("Amastigotes dose response to SbIII") +
   labs(x = "Log10 [ ] μM", y = "Infection (%)") +
   theme_bw() +
   theme(
@@ -239,9 +239,9 @@ DoseResponseCurves02_error <- ggplot() +
     axis.text.y = element_text(size = 10),
     axis.title.x = element_text(size = 15),
     axis.title.y = element_text(size = 15))
-  #facet_wrap(~pop)
-  
-  DoseResponseCurves02_error
+#facet_wrap(~pop)
+
+DoseResponseCurves02_error
 
 DoseResponseCurves03_error <- ggplot() +
   geom_point(data = REF, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
@@ -284,7 +284,7 @@ DoseResponseCurves03_error <- ggplot() +
   geom_errorbar(data = C67, aes(x = log(conc, 10),
                                 ymin = mean_value_res - sd_value_res/sqrt(4),
                                 ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
-  ggtitle("Amastigotes dose response to ANF") +
+  ggtitle("Amastigotes dose response to SbIII") +
   labs(x = "Log10 [ ] μM", y = "Infection(%)") +
   theme_bw() +
   theme(    plot.title = element_text(size = 14, face = "bold"),
@@ -372,7 +372,7 @@ modelC85_SUM$pop <- rep("C85", 2)
 summary_DR <- rbind(modelREF_SUM, modelC7_SUM, modelC6_SUM, modelC44_SUM,
                     modelC58_SUM, modelC67_SUM, modelC73_SUM, modelC85_SUM)
 
-write.csv(summary_DR , file = "Experiments/docs/summary_DR_ANF.csv", row.names = FALSE)
+write.csv(summary_DR , file = "Experiments/docs/summary_DR_SbIII.csv", row.names = FALSE)
 
 
 #  Fit diagnostic
