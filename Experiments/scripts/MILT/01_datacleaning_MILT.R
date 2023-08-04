@@ -8,10 +8,10 @@ library(dplyr)
 library(scales)
 
 # Loading data
-EXP1 <- read.csv(file = "Data/raw/sheets/EXP1_MILT_22042023.csv")
-EXP2 <- read.csv(file = "Data/raw/sheets/EXP2_MILT_28042023.csv")
-EXP3 <- read.csv(file = "Data/raw/sheets/EXP3_MILT_02052023.csv")
-EXP4 <- read.csv(file = "Data/raw/sheets/EXP4_MILT_08052023.csv")
+EXP1 <- read.csv(file = "Experiments/Data/raw/sheets/EXP1_MILT_22042023.csv")
+EXP2 <- read.csv(file = "Experiments/Data/raw/sheets/EXP2_MILT_28042023.csv")
+EXP3 <- read.csv(file = "Experiments/Data/raw/sheets/EXP3_MILT_02052023.csv")
+EXP4 <- read.csv(file = "Experiments/Data/raw/sheets/EXP4_MILT_08052023.csv")
 
 # removing background
 
