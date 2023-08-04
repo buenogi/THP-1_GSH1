@@ -1,0 +1,41 @@
+# EXP2
+
+# Selection of non infected cells accounts
+
+ama_noninfected <- filter(EXP2, pop =="THP-1")
+ama_noninfected <- subset(ama_noninfected, select = c(n_amas, conc))
+EXP2 <- full_join(EXP2, ama_noninfected, by = "conc")
+
+# Correction
+
+corrected_ama <- c()
+for (i in 1:nrow(EXP2)){
+  n_amas_wtht_bckgd <- EXP2$n_amas.x[i]-EXP2$n_amas.y[i] 
+  corrected_ama[i] <- n_amas_wtht_bckgd 
+}
+corrected_ama <- data.frame(corrected_ama)
+
+print(corrected_ama[i] < 0)
+
+for (i in 1:nrow(corrected_ama)) {
+  for(j in 1:ncol(corrected_ama)) {
+    if(corrected_ama[i,j] < 0) {
+      corrected_ama[i,j] <- 0
+    }
+  }
+} 
+
+#EXP2$n_amas_correct <- corrected_ama
+EXP2 <- cbind(EXP2, corrected_ama)
+
+# Ama per cell calculations
+
+ama_per_cell <- c()
+for (i in 1:nrow(EXP2)){
+  ama_per_cell[i] <- EXP2$corrected_ama[i]/EXP2$n_celulas[i] 
+}
+
+ama_per_cell <- data.frame(ama_per_cell)
+
+EXP2 <- cbind(EXP2, ama_per_cell)
+EXP2$experiment <- "EXP 3"
