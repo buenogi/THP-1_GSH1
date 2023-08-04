@@ -52,6 +52,8 @@ infectivity_plot_01 <- ggplot(Infec_data, aes(x = reorder(pop,desc(ama_per_cell)
   theme_light()
 infectivity_plot
 
+ggsave("Experiments/figs/01_infectivity.jpg")
+
 infectivity_plot_02 <- ggplot(Infec_data, aes(x = reorder(pop,desc(ama_per_cell))
                                               , ama_per_cell))+
   geom_bar(stat = "identity", fill = "purple")+
@@ -59,6 +61,8 @@ infectivity_plot_02 <- ggplot(Infec_data, aes(x = reorder(pop,desc(ama_per_cell)
   facet_wrap(Infec_data$experiment)
 theme_light()
 infectivity_plot_02
+
+ggsave("Experiments/figs/02_infectivity.jpg")
 
 # Calculating mean and standard errors
 
@@ -83,6 +87,8 @@ infectivity_plot_03 <- ggplot(Infec_data_SUM,
   theme_light()
   
 infectivity_plot_03
+ggsave("Experiments/figs/03_infectivity.jpg")
+
 
 # ANOVA
 
