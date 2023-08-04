@@ -1,17 +1,16 @@
 ################################################################################
-###################### Infection ANF data cleaning ###########################
+######################## Infection ANF data cleaning ###########################
 ################################################################################
-
 
 # Packages
 library(dplyr)
 library(scales)
 
 # Loading data
-EXP1 <- read.csv(file = "Data/raw/sheets/EXP1_ANF_22042023.csv")
-EXP2 <- read.csv(file = "Data/raw/sheets/EXP2_ANF_28042023.csv")
-EXP3 <- read.csv(file = "Data/raw/sheets/EXP3_ANF_02052023.csv")
-EXP4 <- read.csv(file = "Data/raw/sheets/EXP4_ANF_08052023.csv")
+EXP1 <- read.csv(file = "Experiments/Data/raw/sheets/EXP1_ANF_22042023.csv")
+EXP2 <- read.csv(file = "Experiments/Data/raw/sheets/EXP2_ANF_28042023.csv")
+EXP3 <- read.csv(file = "Experiments/Data/raw/sheets/EXP3_ANF_02052023.csv")
+EXP4 <- read.csv(file = "Experiments/Data/raw/sheets/EXP4_ANF_08052023.csv")
 
 # removing background
 
@@ -276,5 +275,5 @@ EXP4$experiment <- "EXP 4"
 
 EXP_full <- rbind(EXP1, EXP2, EXP3, EXP4)
 
-write.csv(EXP_full, file = "Data/processed/EXP_full_ANF_corrected.csv")
+write.csv(EXP_full, file = "Experiments/Data/processed/EXP_full_ANF_corrected.csv")
 
