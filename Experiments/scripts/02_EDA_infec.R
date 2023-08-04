@@ -5,68 +5,96 @@
 # Packages
 #library(dplyr)
 library(ggplot2)
-#library(scales)
+library(agricolae)
 
 # Loading data
-EXP1 <- read.csv(file = "Data/Processed/EXP1_28032023_corrected.csv")
-EXP2 <- read.csv(file = "Data/Processed/EXP2_08042023_corrected.csv")
+DataANF <- read.csv(file = 
+                      "Experiments/Data/processed/EXP_full_ANF_corrected.csv")
+DataMIL <- read.csv(file = 
+                      "Experiments/Data/processed/EXP_full_MILT_corrected.csv")
+DataSbIII <- read.csv(file = 
+                        "Experiments/Data/processed/EXP_full_SbIII_corrected.csv")
 
-EXP1$experiment <- "EXP 1"
-EXP2$experiment <- "EXP_2"
-EXP_full <-rbind(EXP1, EXP2)
+EXP_full <-rbind(DataANF, DataMIL, DataSbIII)
+
+# Removing inadequate clones
+
+EXP_full <- EXP_full%>%
+  filter(!grepl("C76", pop))
+
+
+EXP_full<- EXP_full%>%
+  filter(!grepl("C89", pop))
+
+EXP_full<- EXP_full%>%
+  filter(!grepl("THP-1", pop))
 
 # Checking
 sapply(EXP_full, class)
 EXP_full$conc <- as.factor(EXP_full$conc)
 EXP_full$pop <- as.factor(EXP_full$pop)
+EXP_full$composto <- as.factor(EXP_full$composto)
 EXP_full$experiment <- as.factor(EXP_full$experiment)
 sapply(EXP_full, class)
 
+sapply(Infec_data, class)
+
 # Infectivity
 
-Infec_data <- filter(EXP_full, conc == "0")
+Infec_data <- filter(EXP_full, conc == 0 | conc == 0.00)
 
-infectivity_plot <- ggplot(Infec_data, aes(pop, ama_per_cell))+
+
+infectivity_plot_01 <- ggplot(Infec_data, aes(x = reorder(pop,desc(ama_per_cell)),
+                                                          ama_per_cell))+
   geom_bar(stat = "identity", fill = "purple")+
-  #geom_errorbar(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value),
-  #width = 0.4,  # Largura das barras de erro
-  #position = position_dodge(width = 0.9))+
   labs(y = "Amastigotes/Cell", x = "Population")+
-  facet_wrap(Infec_data$experiment)
+  facet_wrap(Infec_data$composto)
   theme_light()
 infectivity_plot
 
-# Dose response - amastigotes accounts for each conc
+infectivity_plot_02 <- ggplot(Infec_data, aes(x = reorder(pop,desc(ama_per_cell))
+                                              , ama_per_cell))+
+  geom_bar(stat = "identity", fill = "purple")+
+  labs(y = "Amastigotes/Cell", x = "Population")+
+  facet_wrap(Infec_data$experiment)
+theme_light()
+infectivity_plot_02
 
-AmaPcellplot <- ggplot(EXP_full, aes(fill= conc,
-                                       y = ama_per_cell,
-                                       x = pop))+
-  geom_bar(position = "dodge", stat = "identity")+
-  ggtitle("Nº of amastigote per cell SbIII dosage in different populations") +
-  labs(x = " Populations ", y = "Nº of cells")+
-  theme(plot.title = element_text(size = 14,face="bold"),
-        axis.text.x = element_text(size = 10),
-        axis.text.y = element_text(size = 10),
-        axis.title.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15))+
-  facet_wrap(EXP_full$experiment)
-  theme_bw()
-AmaPcellplot
+# Calculating mean and standard errors
+
+sum_measures <- Infec_data%>%
+  group_by(pop)%>%
+  summarise(mean_value = mean(ama_per_cell), 
+            sd_error = sd(ama_per_cell)/sqrt(4))
 
 
-# Lines
+Infec_data_SUM <- full_join(Infec_data, sum_measures)
 
-lineplot <- ggplot(EXP_full, aes(y = ama_per_cell, x = conc, group = pop))+
-  geom_line(aes(color = EXP_full$pop))+
-  ggtitle("Dose response pattern for different SbIII concentrations") +
-  labs(x = " Populations ", y = "Nº of cells")+
-  theme(plot.title = element_text(size = 14,face="bold"),
-        axis.text.x = element_text(size = 10),
-        axis.text.y = element_text(size = 10),
-        axis.title.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15))+
-  facet_wrap(EXP_full$experiment)+
-theme_bw()
-lineplot
+sapply(Infec_data_SUM, class)
+
+infectivity_plot_03 <- ggplot(Infec_data_SUM, 
+                              aes(x = reorder(pop,desc(mean_value)),mean_value))+
+  geom_bar(stat = "identity", fill = "purple", 
+           position = position_dodge(width = 0.02))+
+  geom_errorbar(aes(ymin = mean_value - sd_error,
+                    ymax = mean_value + sd_error,
+                    width = 0.2, alpha = 0.5))+
+  labs(y = "Amastigotes/Cell", x = "Population")+
+  theme_light()
+  
+infectivity_plot_03
+
+# ANOVA
+
+sum_measures_reptec <- Infec_data%>%
+  group_by(pop, experiment)%>%
+  summarise(mean_value_reptec = mean(ama_per_cell), 
+            sd_value= sd(ama_per_cell))
+
+
+modelo_anova <- aov(mean_value_reptec~ pop, data = sum_measures_reptec)
+
+summary(modelo_anova)
+
 
 

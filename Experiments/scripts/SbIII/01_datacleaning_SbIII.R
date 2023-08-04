@@ -59,14 +59,14 @@ for (i in 1:nrow(EXP1)){
 
 ama_per_cell <- data.frame(ama_per_cell)
 
-ama_per_infc_cell <- c()
-for (i in 1:nrow(EXP1)){
-  ama_per_infc_cell[i] <- EXP1$corrected_ama[i]/EXP1$n_cels_infec[i] 
-}
-
-ama_per_infc_cell <- data.frame(ama_per_infc_cell)
-
-EXP1 <- cbind(EXP1, ama_per_cell,ama_per_infc_cell)
+# ama_per_infc_cell <- c()
+# for (i in 1:nrow(EXP1)){
+#   ama_per_infc_cell[i] <- EXP1$corrected_ama[i]/EXP1$n_cels_infec[i] 
+# }
+# 
+# ama_per_infc_cell <- data.frame(ama_per_infc_cell)
+# 
+EXP1 <- cbind(EXP1, ama_per_cell)
 EXP1$experiment <- "EXP 1"
 
 # ama_noninfected <- filter(EXP1, pop =="THP-1")
@@ -163,15 +163,14 @@ ama_per_cell <- data.frame(ama_per_cell)
 
 EXP2 <- cbind(EXP2, ama_per_cell)
 
-ama_per_infc_cell <- c()
-for (i in 1:nrow(EXP2)){
-  ama_per_infc_cell[i] <- EXP2$corrected_ama[i]/EXP2$n_cels_infec[i] 
-}
-
-ama_per_infc_cell <- data.frame(ama_per_infc_cell)
-
-EXP2 <- cbind(EXP2,ama_per_infc_cell)
-EXP2$experiment <- "EXP 2"
+# ama_per_infc_cell <- c()
+# for (i in 1:nrow(EXP2)){
+#   ama_per_infc_cell[i] <- EXP2$corrected_ama[i]/EXP2$n_cels_infec[i] 
+# }
+# 
+# ama_per_infc_cell <- data.frame(ama_per_infc_cell)
+# 
+# EXP2 <- cbind(EXP2,ama_per_infc_cell)
 
 EXP2$experiment <- "EXP 2"
 
@@ -286,14 +285,14 @@ ama_per_cell <- c()
 
  EXP3 <- cbind(EXP3, ama_per_cell)
  
- ama_per_infc_cell <- c()
- for (i in 1:nrow(EXP3)){
-   ama_per_infc_cell[i] <- EXP3$corrected_ama[i]/EXP3$n_cels_infec[i] 
- }
- 
- ama_per_infc_cell <- data.frame(ama_per_infc_cell)
- 
- EXP3 <- cbind(EXP3,ama_per_infc_cell)
+ # ama_per_infc_cell <- c()
+ # for (i in 1:nrow(EXP3)){
+ #   ama_per_infc_cell[i] <- EXP3$corrected_ama[i]/EXP3$n_cels_infec[i] 
+ # }
+ # 
+ # ama_per_infc_cell <- data.frame(ama_per_infc_cell)
+ # 
+ # EXP3 <- cbind(EXP3,ama_per_infc_cell)
  EXP3$experiment <- "EXP 3"
 
  # EXP 4
@@ -351,14 +350,14 @@ ama_per_cell <- data.frame(ama_per_cell)
 
 EXP4 <- cbind(EXP4, ama_per_cell)
 
-ama_per_infc_cell <- c()
-for (i in 1:nrow(EXP4)){
-  ama_per_infc_cell[i] <- EXP4$corrected_ama[i]/EXP4$n_cels_infec[i] 
-}
-
-ama_per_infc_cell <- data.frame(ama_per_infc_cell)
-
-EXP4 <- cbind(EXP4,ama_per_infc_cell)
+# ama_per_infc_cell <- c()
+# for (i in 1:nrow(EXP4)){
+#   ama_per_infc_cell[i] <- EXP4$corrected_ama[i]/EXP4$n_cels_infec[i] 
+# }
+# 
+# ama_per_infc_cell <- data.frame(ama_per_infc_cell)
+# 
+# EXP4 <- cbind(EXP4,ama_per_infc_cell)
 EXP4$experiment <- "EXP 4"
 
 # Completed Dataframe
