@@ -261,7 +261,7 @@ for (i in 1:nrow(corrected_ama)) {
 EXP4 <- cbind(EXP4, corrected_ama)
 
 # Ama per cell calculations
-
+# 
 ama_per_cell <- c()
 for (i in 1:nrow(EXP4)){
   ama_per_cell[i] <- EXP4$corrected_ama[i]/EXP4$n_cels_infec[i] 
@@ -276,5 +276,5 @@ EXP4$experiment <- "EXP 4"
 
 EXP_full <- rbind(EXP1, EXP2, EXP3, EXP4)
 
-write.csv(EXP_full, file = "Data/processed/EXP_full_MILT_corrected.csv")
+write.csv(EXP_full, file = "Experiments/Data/processed/EXP_full_MILT_corrected.csv")
 

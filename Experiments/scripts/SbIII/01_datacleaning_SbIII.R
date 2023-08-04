@@ -9,10 +9,10 @@ library(scales)
 
 # Loading data
 
-EXP1 <- read.csv(file = "Data/raw/sheets/EXP1_SbIII_22042023_A.csv")
-EXP2 <- read.csv(file = "Data/raw/sheets/EXP2_SbIII_28042023.csv")
-EXP3 <- read.csv(file = "Data/raw/sheets/EXP3_SbIII_02052023.csv")
-EXP4 <- read.csv(file = "Data/raw/sheets/EXP4_SbIII_08052023.csv")
+EXP1 <- read.csv(file = "Experiments/Data/raw/sheets/EXP1_SbIII_22042023_A.csv")
+EXP2 <- read.csv(file = "Experiments/Data/raw/sheets/EXP2_SbIII_28042023.csv")
+EXP3 <- read.csv(file = "Experiments/Data/raw/sheets/EXP3_SbIII_02052023.csv")
+EXP4 <- read.csv(file = "Experiments/Data/raw/sheets/EXP4_SbIII_08052023.csv")
 
 # removing background
 
@@ -365,5 +365,5 @@ EXP4$experiment <- "EXP 4"
 
 EXP_full <- rbind(EXP1, EXP2, EXP3, EXP4)
 
-write.csv(EXP_full, file = "Data/processed/EXP_full_SbIII_corrected.csv")
+write.csv(EXP_full, file = "Experiments/Data/processed/EXP_full_SbIII_corrected.csv")
 
