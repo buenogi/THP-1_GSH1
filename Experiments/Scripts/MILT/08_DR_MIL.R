@@ -377,6 +377,72 @@ summary_DR <- rbind(modelREF_SUM, modelC7_SUM, modelC6_SUM, modelC44_SUM,
 
 write.csv(summary_DR , file = "Experiments/Docs/summary_DR_MIL.csv", row.names = FALSE)
 
+# Models comparisons
+
+m1<-drm(mean_value_res ~ conc, pop, data = DataMIL_SUM, 
+        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50")))
+m2<-drm(mean_value_res ~ conc, data = DataMIL_SUM, 
+        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50")))
+
+anova(m1,m2) 
+
+# There is difference between curves accordingly with populations 
+# (m1 IS SIGNIFICANT).
+
+compParm(m1, "ED50")
+
+# Differences was found between REF and C6, C58***, C67***,C73***, and C85**
+# also between C6 and C7**,C44**,C58,C67,C73 and 685
+# C7 and C58*, C67,C73,C85*
+# C44 and C58*, C73***, C85*
+# C58 and CC67** 
+
+# Plotting meaningfull differences:
+
+DoseResponseCurves04<- ggplot() +
+  geom_point(data = REF, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_REF, aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
+  geom_errorbar(data = REF, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02, alpha = 0.3) +
+  geom_point(data = C6, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C6, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C6, aes(x = log(conc, 10),
+                               ymin = mean_value_res - sd_value_res/sqrt(4),
+                               ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C58, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C58, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C58, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C73, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C73, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C73, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C85, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C85, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C85, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C67, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C67, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C67, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  ggtitle("Amastigotes dose response to MIL") +
+  labs(x = "Log10 [ ] μM", y = "Infection(%)") +
+  theme_bw() +
+  theme(    plot.title = element_text(size = 14, face = "bold"),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 15),
+            axis.title.y = element_text(size = 15))
+#facet_wrap(~pop)
+
+DoseResponseCurves04 + labs(color = "Populations")
+ggsave("Experiments/Figures/DoseResponseCurves_MIL_04.png")
+
 
 #  Fit diagnostic
 
