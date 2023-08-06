@@ -1,11 +1,11 @@
 {
     "id": "8FC8332B",
     "path": "~/Documentos/Mestrado/Resultados/THP1_infec/Experiments/Script/02_EDA_SbIII.R",
-    "project_path": "Script/02_EDA_SbIII.R",
+    "project_path": null,
     "type": "r_source",
     "hash": "2994156466",
     "contents": "",
-    "dirty": false,
+    "dirty": true,
     "created": 1683915649053.0,
     "source_on_save": false,
     "relative_order": 3,
@@ -14,7 +14,7 @@
         "source_window_id": "",
         "Source": "Source",
         "cursorPosition": "155,0",
-        "scrollLine": "139"
+        "scrollLine": "136"
     },
     "folds": "",
     "lastKnownWriteTime": 1683920245,
