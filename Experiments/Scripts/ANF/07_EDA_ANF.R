@@ -37,7 +37,7 @@ AmaPcellplot <- ggplot(DataANF, aes(fill= conc,
 theme_bw()
 AmaPcellplot
 
-ggsave("Experiments/figs/04_AmaPcellplot_ANF.jpg")
+ggsave("Experiments/Figures/04_AmaPcellplot_ANF.jpg")
 
 # Lines
 
@@ -54,7 +54,7 @@ lineplot <- ggplot(DataANF, aes(y = viability_normalized, x = conc, group = pop)
   theme_bw()
 lineplot
 
-ggsave("Experiments/figs/05_AmaPcellplot_ANF.jpg")
+ggsave("Experiments/Figures/05_AmaPcellplot_ANF.jpg")
 
 # Summarized
 
@@ -74,4 +74,4 @@ lineplot_sum <- ggplot(EXP_sum, aes(y = mean_value, x = conc, group = pop))+
   theme_bw()
 lineplot_sum+  labs(color = "Populations")
 
-ggsave("Experiments/figs/06_AmaPcellplot_ANF.jpg")
+ggsave("Experiments/Figures/06_AmaPcellplot_ANF.jpg")

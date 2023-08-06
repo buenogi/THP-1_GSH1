@@ -47,5 +47,5 @@ MTT_BP_pop <-  ggplot(DataMIL, aes(conc, ama_per_cell))+
 
 MTT_BP_pop +  labs(color = "Populations")
 
-ggsave("figs/01_MTT_BoxPlot_normalized.png")
+ggsave("Experiments/Figures/01_MTT_BoxPlot_normalized.png")
 

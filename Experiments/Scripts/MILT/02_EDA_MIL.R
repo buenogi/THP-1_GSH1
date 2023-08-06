@@ -48,7 +48,7 @@ AmaPcellplot <- ggplot(DataMIL, aes(fill= conc,
 theme_bw()
 AmaPcellplot
 
-ggsave("Experiments/figs/01_AmaPcellplot_MIL.jpg")
+ggsave("Experiments/Figures/01_AmaPcellplot_MIL.jpg")
 
 # Lines
 
@@ -65,7 +65,7 @@ lineplot <- ggplot(DataMIL, aes(y = ama_per_cell, x = conc, group = pop))+
   theme_bw()
 lineplot
 
-ggsave("Experiments/figs/02_AmaPcellplot_MIL.jpg")
+ggsave("Experiments/Figures/02_AmaPcellplot_MIL.jpg")
 
 # Summarized
 
@@ -85,4 +85,4 @@ lineplot_sum <- ggplot(EXP_sum, aes(y = mean_value, x = conc, group = pop))+
   theme_bw()
 lineplot_sum
 
-ggsave("Experiments/figs/03_AmaPcellplot_MIL.jpg")
+ggsave("Experiments/Figures/03_AmaPcellplot_MIL.jpg")

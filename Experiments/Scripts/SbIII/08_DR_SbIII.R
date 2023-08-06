@@ -189,6 +189,8 @@ DoseResponseCurves_01 <- ggplot() +
 
 DoseResponseCurves_01
 
+ggsave("Experiments/Figures/DoseResponseCurves_SbIII_01.png")
+
 DoseResponseCurves02_error <- ggplot() +
   geom_point(data = REF, aes(x = log(conc, 10), y = viability_normalized)) +
   geom_line(data = newdata_REF, aes(x = log(conc, 10), y = newdata_REF$viability_normalized)) +
@@ -238,10 +240,11 @@ DoseResponseCurves02_error <- ggplot() +
     axis.text.x = element_text(size = 10),
     axis.text.y = element_text(size = 10),
     axis.title.x = element_text(size = 15),
-    axis.title.y = element_text(size = 15))
-#facet_wrap(~pop)
+    axis.title.y = element_text(size = 15))+
+  facet_wrap(~pop)
 
 DoseResponseCurves02_error
+ggsave("Experiments/Figures/DoseResponseCurves_SbIII_02.png")
 
 DoseResponseCurves03_error <- ggplot() +
   geom_point(data = REF, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
@@ -295,7 +298,7 @@ DoseResponseCurves03_error <- ggplot() +
 #facet_wrap(~pop)
 
 DoseResponseCurves03_error
-
+ggsave("Experiments/Figures/DoseResponseCurves_SbIII_03.png")
 
 
 # Extracting measures
@@ -372,7 +375,7 @@ modelC85_SUM$pop <- rep("C85", 2)
 summary_DR <- rbind(modelREF_SUM, modelC7_SUM, modelC6_SUM, modelC44_SUM,
                     modelC58_SUM, modelC67_SUM, modelC73_SUM, modelC85_SUM)
 
-write.csv(summary_DR , file = "Experiments/docs/summary_DR_SbIII.csv", row.names = FALSE)
+write.csv(summary_DR , file = "Experiments/Docs/summary_DR_SbIII.csv", row.names = FALSE)
 
 
 #  Fit diagnostic
