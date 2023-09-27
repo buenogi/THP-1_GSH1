@@ -75,3 +75,4 @@ lineplot_sum <- ggplot(EXP_sum, aes(y = mean_value, x = conc, group = pop))+
 lineplot_sum+  labs(color = "Populations")
 
 ggsave("Figures/10_ANF_AmaPcellplot_ANF.jpg")
+

@@ -25,15 +25,15 @@ DataANF<- DataANF%>%
 DataANF<- DataANF%>%
   filter(!grepl("THP-1", pop))
 
-# Outliers identification
-
-# outliers_multiple <- DataANF%>%
-#   group_by(pop,experiment) %>%
-#   identify_outliers(ama_per_cell)
-# 
-# outliers <- c(240,180,228,168,169,108,229, 216,217,120,156,204)
-# 
-# DataANF <- DataANF[-outliers,]
+#Outliers identification
+ 
+ outliers_multiple <- DataANF%>%
+ group_by(pop,experiment) %>%
+ identify_outliers(ama_per_cell)
+ 
+ outliers <- c(240,180,228,168,169,108,229, 216,217,120,156,204)
+ 
+ DataANF <- DataANF[-outliers,]
 
 # Spliting data
 

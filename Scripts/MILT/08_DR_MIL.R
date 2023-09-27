@@ -455,11 +455,12 @@ summary_DR <- rbind(modelREF_SUM, modelC7_SUM, modelC6_SUM,
 write.csv(summary_DR , file = "Docs/summary_DR_MIL.csv", row.names = FALSE)
 
 # Models comparisons
-
 m1<-drm(mean_value_res ~ conc, pop, data = DataMIL_SUM, 
-        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50")))
+        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50"), 
+                  fixed = c(NA, 0,100, NA)))
 m2<-drm(mean_value_res ~ conc, data = DataMIL_SUM, 
-        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50")))
+        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50"),
+                  fixed = c(NA, 0,100, NA)))
 
 anova(m1,m2) 
 
@@ -509,12 +510,12 @@ DoseResponseCurves04 <- ggplot() +
                                  ymin = mean_value_res - sd_value_res/sqrt(4),
                                  ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
                 width = 0.05, alpha = 0.3) +
-  geom_point(data = C76, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C76, size = 2 ,aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C76, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
+  # geom_point(data = C76, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C76, size = 2 ,aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C76, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
   geom_point(data = C85, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
   geom_line(data = newdata_C85,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
   geom_errorbar(data = C85, aes(x = log(conc, 10),
@@ -539,7 +540,7 @@ DoseResponseCurves04 + labs(color = "Populações", size = 20)+
         legend.justification = "right",
         legend.box.background = element_blank())
 
-ggsave("Figures/14_DoseResponseCurves.png")
+ggsave("Figures/14_MIL_DoseResponseCurves.png")
 
 
 #  Fit diagnostic

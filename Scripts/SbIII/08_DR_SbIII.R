@@ -491,9 +491,11 @@ write.csv(summary_DR , file = "Docs/summary_DR_SbIII.csv", row.names = FALSE)
 # Models comparisons
 
 m1<-drm(mean_value_res ~ conc, pop, data = DataSbIII_SUM, 
-        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50")))
+        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50"), 
+                  fixed = c(NA, 0,100, NA)))
 m2<-drm(mean_value_res ~ conc, data = DataSbIII_SUM, 
-        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50")))
+        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50"),
+                  fixed = c(NA, 0,100, NA)))
 
 anova(m1,m2) 
 
@@ -509,51 +511,69 @@ compParm(m1, "Slope")
 
 DoseResponseCurves04 <- ggplot() +
   geom_point(data = REF, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_REF, size = 2 ,aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
+  geom_line(data = newdata_REF, size = 5 ,aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
   geom_errorbar(data = REF, aes(x = log(conc, 10),
                                 ymin = mean_value_res - sd_value_res/sqrt(8),
                                 ymax = mean_value_res + sd_value_res/sqrt(8), color = pop), 
                 width = 0.05, alpha = 0.3) +
   geom_point(data = C6, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C6,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_line(data = newdata_C6,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
   geom_errorbar(data = C6, aes(x = log(conc, 10),
                                ymin = mean_value_res - sd_value_res/sqrt(4),
                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
                 width = 0.05, alpha = 0.3) +
+  # geom_point(data = C7, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C7,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C7, aes(x = log(conc, 10),
+  #                              ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                              ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  geom_point(data = C44, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C44,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C44, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+                width = 0.05, alpha = 0.3) +
   
   geom_point(data = C67, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C67,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_line(data = newdata_C67,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
   geom_errorbar(data = C67, aes(x = log(conc, 10),
                                 ymin = mean_value_res - sd_value_res/sqrt(4),
                                 ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
                 width = 0.05, alpha = 0.3) +
   geom_point(data = C67p, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C67p,size = 2 , aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
+  geom_line(data = newdata_C67p,size = 1.5 , aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
   geom_errorbar(data = C67p, aes(x = log(conc, 10),
                                  ymin = mean_value_res - sd_value_res/sqrt(4),
                                  ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
                 width = 0.05, alpha = 0.3) +
-  geom_point(data = C76, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C76, size = 2 ,aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C76, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
+  # geom_point(data = C76, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C76, size = 1.5 ,aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C76, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
   geom_point(data = C73, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C73,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_line(data = newdata_C73,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
   geom_errorbar(data = C73, aes(x = log(conc, 10),
                                 ymin = mean_value_res - sd_value_res/sqrt(4),
                                 ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
                 width = 0.05, alpha = 0.3) +
   geom_point(data = C58, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C58,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_line(data = newdata_C58,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
   geom_errorbar(data = C58, aes(x = log(conc, 10),
                                 ymin = mean_value_res - sd_value_res/sqrt(4),
                                 ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
                 width = 0.05, alpha = 0.3) +
   geom_point(data = C68, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C68,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_line(data = newdata_C68,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
   geom_errorbar(data = C68, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+                width = 0.05, alpha = 0.3) +
+  geom_point(data = C85, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C85,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C85, aes(x = log(conc, 10),
                                 ymin = mean_value_res - sd_value_res/sqrt(4),
                                 ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
                 width = 0.05, alpha = 0.3) +
@@ -569,13 +589,13 @@ DoseResponseCurves04 + labs(color = "Populações", size = 20)+
         axis.text.y = element_text(size = 20, face = "bold"),
         axis.title.x = element_text(size = 20, face = "bold"),
         axis.title.y = element_text(size = 20, face = "bold"),
-        legend.text = element_text(size = 20),
-        legend.title = element_text(size = 20,  face = "bold"),
-        legend.position = c(0.95,0.7),   
+        legend.text = element_text(size = 15),
+        legend.title = element_text(size = 15,  face = "bold"),
+        legend.position = c(0.95,0.75),   
         legend.justification = "right",
         legend.box.background = element_blank())
 
-ggsave("Figures/14_DoseResponseCurves.png")
+ggsave("Figures/14_SbIII_DoseResponseCurves.png")
 
 
 #  Fit diagnostic

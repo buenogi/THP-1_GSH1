@@ -120,8 +120,8 @@ posthoc_tukey <- TukeyHSD(modelo_anova)
 
 print(posthoc_tukey)
 
-plot(posthoc_tukey , las=1 , col="brown")
-png("Figures/04_infectivity.png",  width = 6, height = 4, units = "in", res = 300)
+# plot(posthoc_tukey , las=1 , col="brown")
+# png("Figures/04_infectivity.png",  width = 6, height = 4, units = "in", res = 300)
 
 #Showing differences
 
@@ -151,9 +151,10 @@ infectivity_plot_05 <- ggplot(dt, aes(reorder(pop,desc(mean_value)), mean_value)
   geom_errorbar(aes(ymin = mean_value-sd_value, ymax=mean_value+sd_value),
                 width = 0.2) +
   labs(x = "População", y = "Média de amastigotas por célula") +
-  geom_text(aes(label = cld, y = mean_value + sd_value), vjust = -0.5) +
-  ylim(0,30) +
-  theme_bw()
+  theme_bw()+
+  geom_text(aes(label = cld, y = mean_value + sd_value), size = 10, vjust = -0.5) +
+  ylim(0,30) 
+  
 
 infectivity_plot_05+theme(plot.title = element_text(size = 18, face = "bold"),
                           axis.text.x = element_text(size = 18, face = "bold"),
@@ -164,4 +165,6 @@ infectivity_plot_05+theme(plot.title = element_text(size = 18, face = "bold"),
                           legend.title = element_text(size = 18,  face = "bold")
                           
 )
+
+infectivity_plot_05
 ggsave("Figures/05_infectivity.jpg")

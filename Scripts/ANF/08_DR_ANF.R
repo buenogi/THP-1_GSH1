@@ -491,9 +491,11 @@ write.csv(summary_DR , file = "Docs/summary_DR_ANF.csv", row.names = FALSE)
 # Models comparisons
 
 m1<-drm(mean_value_res ~ conc, pop, data = DataANF_SUM, 
-        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50")))
+        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50"), 
+                  fixed = c(NA, 0,100, NA)))
 m2<-drm(mean_value_res ~ conc, data = DataANF_SUM, 
-        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50")))
+        fct =LL.4(names = c("Slope", "Lower Limit", "Upper Limit", "ED50"),
+                  fixed = c(NA, 0,100, NA)))
 
 anova(m1,m2) 
 
@@ -503,7 +505,7 @@ anova(m1,m2)
 compParm(m1, "ED50")
 compParm(m1, "Slope")
 
-# Differences was found between REF and C6, C7, C44, C76, C67 e 68*
+# Differences was found between REF and C6, C67 e 68*
 # also between C73 C6*, C7** and C44*
 # There is difference between C44 and C76, C44 and C68
 # C73 and C76
@@ -520,48 +522,48 @@ DoseResponseCurves04 <- ggplot() +
                                 ymin = mean_value_res - sd_value_res/sqrt(8),
                                 ymax = mean_value_res + sd_value_res/sqrt(8), color = pop), 
                 width = 0.05, alpha = 0.3) +
-  geom_point(data = C6, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C6,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C6, aes(x = log(conc, 10),
-                               ymin = mean_value_res - sd_value_res/sqrt(4),
-                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C7, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C7,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C7, aes(x = log(conc, 10),
-                               ymin = mean_value_res - sd_value_res/sqrt(4),
-                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C44, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C44,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C44, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
+  # geom_point(data = C6, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C6,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C6, aes(x = log(conc, 10),
+  #                              ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                              ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  # geom_point(data = C7, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C7,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C7, aes(x = log(conc, 10),
+  #                              ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                              ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  # geom_point(data = C44, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C44,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C44, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
   geom_point(data = C67p, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
   geom_line(data = newdata_C67p,size = 2 , aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
   geom_errorbar(data = C67p, aes(x = log(conc, 10),
                                  ymin = mean_value_res - sd_value_res/sqrt(4),
                                  ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
                 width = 0.05, alpha = 0.3) +
-  geom_point(data = C76, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C76, size = 2 ,aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C76, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C73, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C73,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C73, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C85, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C85,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C85, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
+  # geom_point(data = C76, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C76, size = 2 ,aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C76, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  # geom_point(data = C73, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C73,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C73, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  # geom_point(data = C85, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  # geom_line(data = newdata_C85,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C85, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
   ggtitle("Amastigotes suscetibitily to ANF") +
   labs(x = "Log10 [ ] μM", y = "Viabilidade (%)", color = "Populations") +
   ylim(0,115)+
@@ -580,7 +582,7 @@ DoseResponseCurves04 + labs(color = "Populações", size = 20)+
         legend.justification = "right",
         legend.box.background = element_blank())
 
-ggsave("Figures/14_DoseResponseCurves.png")
+ggsave("Figures/14_ANF_DoseResponseCurves.png")
 
 
 #  Fit diagnostic
