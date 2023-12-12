@@ -304,7 +304,7 @@ DoseResponseCurves02_error <- ggplot() +
   geom_errorbar(data = C68, aes(x = log(conc, 10),
                                 ymin = mean_value_res - sd_value_res/sqrt(4),
                                 ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
-  ggtitle("Promastigotes dose response to SbIII") +
+  # ggtitle("Promastigotes dose response to SbIII") +
   labs(x = "Log10 [ ] μM", y = "Viability (%)") +
   theme_bw() +
   theme(
@@ -507,98 +507,131 @@ compParm(m1, "Slope")
 
 # Differences was found between REF and C6, C58, C67, C73, C76, C67p e 68*
 
+cores <- c("#0000FF", "#0000CC", "#000099", "#0066FF","#0066CC","#00FF00", "#00CC00", 
+           "#006699","#009900", "#3399FF", "#3399CC", "#339999", "red")
+
+
+
 # Ploting meaningfull differences:
 
 DoseResponseCurves04 <- ggplot() +
-  geom_point(data = REF, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_REF, size = 5 ,aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
-  geom_errorbar(data = REF, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(8),
-                                ymax = mean_value_res + sd_value_res/sqrt(8), color = pop), 
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C6, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C6,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C6, aes(x = log(conc, 10),
-                               ymin = mean_value_res - sd_value_res/sqrt(4),
-                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  # geom_point(data = C7, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  # geom_line(data = newdata_C7,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  # geom_errorbar(data = C7, aes(x = log(conc, 10),
+  # geom_point(data = REF, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_REF, size = 3 ,aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = REF, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(8),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(8), color = pop), 
+  #               width = 0.05, alpha = 0.3) +
+  # geom_point(data = C6, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C6,size = .5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C6, aes(x = log(conc, 10),
   #                              ymin = mean_value_res - sd_value_res/sqrt(4),
   #                              ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
   #               width = 0.05, alpha = 0.3) +
-  geom_point(data = C44, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C44,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C44, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
+   # geom_point(data = C7, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+   geom_line(data = newdata_C7,size = 2 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C7, aes(x = log(conc, 10),
+                #                ymin = mean_value_res - sd_value_res/sqrt(4),
+                #                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+                # width = 0.05, alpha = 0.3) +
+  # geom_point(data = C44, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+   geom_line(data = newdata_C44,size = .5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C44, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
   
-  geom_point(data = C67, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C67,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C67, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C67p, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C67p,size = 1.5 , aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C67p, aes(x = log(conc, 10),
-                                 ymin = mean_value_res - sd_value_res/sqrt(4),
-                                 ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
+  # geom_point(data = C67, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C67,size = .5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C67, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  # geom_point(data = C67p, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C67p,size = .5 , aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C67p, aes(x = log(conc, 10),
+                #                  ymin = mean_value_res - sd_value_res/sqrt(4),
+                #                  ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+                # width = 0.05, alpha = 0.3) +
   # geom_point(data = C76, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  # geom_line(data = newdata_C76, size = 1.5 ,aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+   geom_line(data = newdata_C76, size = 2 ,aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
   # geom_errorbar(data = C76, aes(x = log(conc, 10),
   #                               ymin = mean_value_res - sd_value_res/sqrt(4),
   #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
   #               width = 0.05, alpha = 0.3) +
-  geom_point(data = C73, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C73,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C73, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C58, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C58,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C58, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C68, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C68,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C68, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
-  geom_point(data = C85, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
-  geom_line(data = newdata_C85,size = 1.5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
-  geom_errorbar(data = C85, aes(x = log(conc, 10),
-                                ymin = mean_value_res - sd_value_res/sqrt(4),
-                                ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
-                width = 0.05, alpha = 0.3) +
+  # geom_point(data = C73, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C73,size = .5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C73, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  #geom_point(data = C58, aes(x = log(conc, 10), y = mean_value_res, color = cores)) +
+   geom_line(data = newdata_C58,size = .5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C58, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  # geom_point(data = C68, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+   geom_line(data = newdata_C68,size = .5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C68, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
+  # geom_point(data = C85, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C85,size = .5 , aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  # geom_errorbar(data = C85, aes(x = log(conc, 10),
+  #                               ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                               ymax = mean_value_res + sd_value_res/sqrt(4), color = pop),
+  #               width = 0.05, alpha = 0.3) +
   ggtitle("Amastigotes suscetibitily to SbIII") +
   labs(x = "Log10 [ ] μM", y = "Viabilidade (%)", color = "Populations") +
+  scale_fill_manual(color = cores)
   ylim(0,115)+
   theme_bw()
 
 
-DoseResponseCurves04 + labs(color = "Populações", size = 20)+
+  
+  DoseResponseCurves04 <- ggplot() +
+    geom_point(data = REF, aes(x = log(conc, 10), y = mean_value_res), color = "black") +
+    geom_line(data = newdata_REF, aes(x = log(conc, 10), y = viability_normalized), size = 3, color = "black") +
+    geom_errorbar(data = REF, aes(x = log(conc, 10),
+                                  ymin = mean_value_res - sd_value_res / sqrt(8),
+                                  ymax = mean_value_res + sd_value_res / sqrt(8)), 
+                  color = "black", width = 0.02, alpha = 0.3) +
+    geom_line(data = newdata_C6, aes(x = log(conc, 10), y = viability_normalized), size = 0.5, color = "lightseagreen") +
+    geom_line(data = newdata_C7, aes(x = log(conc, 10), y = viability_normalized, linetype = "LiGSH1 C7 (+/-)"), size = 1, color = "red") +
+    geom_line(data = newdata_C44, aes(x = log(conc, 10), y = viability_normalized), size = 0.5, color = "lightseagreen") +
+    geom_line(data = newdata_C67, aes(x = log(conc, 10), y = viability_normalized), size = 0.5, color = "lightseagreen") +
+    geom_line(data = newdata_C67p, aes(x = log(conc, 10), y = viability_normalized), size = 0.5, color = "lightseagreen") +
+    geom_line(data = newdata_C76, aes(x = log(conc, 10), y = viability_normalized, linetype = "LiPGPA C76 (+/-)"), size = 1, color = "red") +
+    geom_line(data = newdata_C73, aes(x = log(conc, 10), y = viability_normalized), size = 0.5, color = "lightseagreen") +
+    geom_line(data = newdata_C58, aes(x = log(conc, 10), y = viability_normalized), size = 0.5, color = "lightseagreen") +
+    geom_line(data = newdata_C68, aes(x = log(conc, 10), y = viability_normalized), size = 0.5, color = "lightseagreen") +
+    geom_line(data = newdata_C85, aes(x = log(conc, 10), y = viability_normalized), size = 0.5, color = "lightseagreen") +
+    labs(x = "Log10 [ ] μM", y = "Viabilidade (%)") +
+    ylim(0, 115) +
+    xlim(0.5, 2) +
+    scale_linetype_manual(values = c("LiGSH1 C7 (+/-)" = "solid", "LiPGPA C76 (+/-)" = "dashed")) +
+    theme_bw()
+  
+  
+  
+  DoseResponseCurves04 + 
+  labs(linetype = expression("Clones com"~"ED"[50] > "ED"[50]~"LiGSH1 WT (+/+)"), size = 20)+
   theme(plot.title = element_text(size = 20, face = "bold"),
         axis.text.x = element_text(size = 20, face = "bold"),
         axis.text.y = element_text(size = 20, face = "bold"),
         axis.title.x = element_text(size = 20, face = "bold"),
         axis.title.y = element_text(size = 20, face = "bold"),
-        legend.text = element_text(size = 15),
-        legend.title = element_text(size = 15,  face = "bold"),
-        legend.position = c(0.95,0.75),   
+        legend.text = element_text(size = 18),
+        legend.title = element_text(size = 18,  face = "bold"),
+        legend.position = c(0.7,0.15),   
         legend.justification = "right",
         legend.box.background = element_blank())
 
 ggsave("Figures/14_SbIII_DoseResponseCurves.png")
 
 
-#  Fit diagnostic
+#  Fit diagnostic --------------------------------
 plot1 <- ggplot(REF, aes(x = fitted(REF_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
@@ -620,9 +653,9 @@ plot3 <- ggplot(REF, aes(sample = residuals(REF_SbIII.LL4, type = "studentised")
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_REF.png", plot)
+REF_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+REF_AMA_SbIII
+ggsave("Figuras/Fit_REF_AMA_SbIII.png", REF_AMA_SbIII)
 
 plot1 <- ggplot(C6, aes(x = fitted(C6_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
@@ -645,9 +678,9 @@ plot3 <- ggplot(C6, aes(sample = residuals(C6_SbIII.LL4, type = "studentised")))
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_C6.png", plot)
+C6_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C6_AMA_SbIII
+ggsave("Figuras/Fit_C6_AMA_SbIII.png", C6_AMA_SbIII)
 
 plot1 <- ggplot(C7, aes(x = fitted(C7_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
@@ -670,14 +703,14 @@ plot3 <- ggplot(C7, aes(sample = residuals(C7_SbIII.LL4, type = "studentised")))
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_C7.png", plot)
+C7_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C7_AMA_SbIII
+ggsave("Figuras/Fit_C7_AMA_SbIII.png", C7_AMA_SbIII)
 
 plot1 <- ggplot(C44, aes(x = fitted(C44_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
-  labs(title = " C44 - LL4 - Ajustados x Observados", x = "Valores ajustados", 
+  labs(title = " C44 - LL4\n Ajustados x Observados", x = "Valores ajustados", 
        y = "Valores observados") +
   theme_minimal()
 
@@ -685,24 +718,24 @@ plot2 <- ggplot(C44, aes(x = fitted(C44_SbIII.LL4), y = residuals(C44_SbIII.LL4,
   geom_point(pch = 16, cex = 0.7) +
   geom_smooth(method = "loess", se = FALSE, color = "blue") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "C44 - LL4 - Resíduos x Ajustados", x = "Valores ajustados", 
+  labs(title = "C44 - LL4\nResíduos x Ajustados", x = "Valores ajustados", 
        y = "Resíduos") +
   theme_minimal()
 
 plot3 <- ggplot(C44, aes(sample = residuals(C44_SbIII.LL4, type = "studentised"))) +
   geom_qq() +
   geom_qq_line() +
-  labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
+  labs(title = "C44 QQ - LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_C44.png", plot)
+C44_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C44_AMA_SbIII
+ggsave("Figuras/Fit_C44_AMA_SbIII.png", C44_AMA_SbIII)
 
 plot1 <- ggplot(C58, aes(x = fitted(C58_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
-  labs(title = " C58 - LL4 - Ajustados x Observados", x = "Valores ajustados", 
+  labs(title = " C58 - LL4\nAjustados x Observados", x = "Valores ajustados", 
        y = "Valores observados") +
   theme_minimal()
 
@@ -710,7 +743,7 @@ plot2 <- ggplot(C58, aes(x = fitted(C58_SbIII.LL4), y = residuals(C58_SbIII.LL4,
   geom_point(pch = 16, cex = 0.7) +
   geom_smooth(method = "loess", se = FALSE, color = "blue") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "C58 - LL4 - Resíduos x Ajustados", x = "Valores ajustados", 
+  labs(title = "C58 - LL4\nResíduos x Ajustados", x = "Valores ajustados", 
        y = "Resíduos") +
   theme_minimal()
 
@@ -720,14 +753,15 @@ plot3 <- ggplot(C58, aes(sample = residuals(C58_SbIII.LL4, type = "studentised")
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
 
-ggsave("Figures/Fit_C58.png", plot)
+C58_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C58_AMA_SbIII
+ggsave("Figuras/Fit_C58_AMA_SbIII.png", C58_AMA_SbIII)
 
 plot1 <- ggplot(C67, aes(x = fitted(C67_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
-  labs(title = " C67 - LL4 - Ajustados x Observados", x = "Valores ajustados", 
+  labs(title = " C67 - LL4 \nAjustados x Observados", x = "Valores ajustados", 
        y = "Valores observados") +
   theme_minimal()
 
@@ -735,7 +769,7 @@ plot2 <- ggplot(C67, aes(x = fitted(C67_SbIII.LL4), y = residuals(C67_SbIII.LL4,
   geom_point(pch = 16, cex = 0.7) +
   geom_smooth(method = "loess", se = FALSE, color = "blue") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "C67 - LL4 - Resíduos x Ajustados", x = "Valores ajustados", 
+  labs(title = "C67 - LL4\nResíduos x Ajustados", x = "Valores ajustados", 
        y = "Resíduos") +
   theme_minimal()
 
@@ -745,15 +779,14 @@ plot3 <- ggplot(C67, aes(sample = residuals(C67_SbIII.LL4, type = "studentised")
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_C67.png", plot)
-
+C67_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C67_AMA_SbIII
+ggsave("Figuras/Fit_C67_AMA_SbIII.png", C67_AMA_SbIII)
 
 plot1 <- ggplot(C73, aes(x = fitted(C73_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
-  labs(title = " C73 - LL4 - Ajustados x Observados", x = "Valores ajustados", 
+  labs(title = " C73 - LL4\nAjustados x Observados", x = "Valores ajustados", 
        y = "Valores observados") +
   theme_minimal()
 
@@ -761,7 +794,7 @@ plot2 <- ggplot(C73, aes(x = fitted(C73_SbIII.LL4), y = residuals(C73_SbIII.LL4,
   geom_point(pch = 16, cex = 0.7) +
   geom_smooth(method = "loess", se = FALSE, color = "blue") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "C73 - LL4 - Resíduos x Ajustados", x = "Valores ajustados", 
+  labs(title = "C73 - LL4\nResíduos x Ajustados", x = "Valores ajustados", 
        y = "Resíduos") +
   theme_minimal()
 
@@ -771,14 +804,14 @@ plot3 <- ggplot(C73, aes(sample = residuals(C73_SbIII.LL4, type = "studentised")
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_C73.png", plot)
+C73_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C73_AMA_SbIII
+ggsave("Figuras/Fit_C73_AMA_SbIII.png", C73_AMA_SbIII)
 
 plot1 <- ggplot(C85, aes(x = fitted(C85_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
-  labs(title = " C85 - LL4 - Ajustados x Observados", x = "Valores ajustados", 
+  labs(title = " C85 - LL4\nAjustados x Observados", x = "Valores ajustados", 
        y = "Valores observados") +
   theme_minimal()
 
@@ -786,7 +819,7 @@ plot2 <- ggplot(C85, aes(x = fitted(C85_SbIII.LL4), y = residuals(C85_SbIII.LL4,
   geom_point(pch = 16, cex = 0.7) +
   geom_smooth(method = "loess", se = FALSE, color = "blue") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "C85 - LL4 - Resíduos x Ajustados", x = "Valores ajustados", 
+  labs(title = "C85 - LL4\nResíduos x Ajustados", x = "Valores ajustados", 
        y = "Resíduos") +
   theme_minimal()
 
@@ -796,14 +829,14 @@ plot3 <- ggplot(C85, aes(sample = residuals(C85_SbIII.LL4, type = "studentised")
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_C85.png", plot)
+C85_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C85_AMA_SbIII
+ggsave("Figuras/Fit_C85_AMA_SbIII.png", C85_AMA_SbIII)
 
 plot1 <- ggplot(C76, aes(x = fitted(C76_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
-  labs(title = " C76 - LL4 - Ajustados x Observados", x = "Valores ajustados", 
+  labs(title = " C76 - LL4\nAjustados x Observados", x = "Valores ajustados", 
        y = "Valores observados") +
   theme_minimal()
 
@@ -811,7 +844,7 @@ plot2 <- ggplot(C76, aes(x = fitted(C76_SbIII.LL4), y = residuals(C76_SbIII.LL4,
   geom_point(pch = 16, cex = 0.7) +
   geom_smooth(method = "loess", se = FALSE, color = "blue") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "C76 - LL4 - Resíduos x Ajustados", x = "Valores ajustados", 
+  labs(title = "C76 - LL4\nResíduos x Ajustados", x = "Valores ajustados", 
        y = "Resíduos") +
   theme_minimal()
 
@@ -821,14 +854,14 @@ plot3 <- ggplot(C76, aes(sample = residuals(C76_SbIII.LL4, type = "studentised")
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_C76.png", plot)
+C76_PGPA_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C76_PGPA_AMA_SbIII
+ggsave("Figuras/Fit_C76_PGPA_AMA_SbIII.png", C76_PGPA_AMA_SbIII)
 
 plot1 <- ggplot(C67p, aes(x = fitted(C67p_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
-  labs(title = " C67p - LL4 - Ajustados x Observados", x = "Valores ajustados", 
+  labs(title = " C67 PGPA - LL4\nAjustados x Observados", x = "Valores ajustados", 
        y = "Valores observados") +
   theme_minimal()
 
@@ -836,7 +869,7 @@ plot2 <- ggplot(C67p, aes(x = fitted(C67p_SbIII.LL4), y = residuals(C67p_SbIII.L
   geom_point(pch = 16, cex = 0.7) +
   geom_smooth(method = "loess", se = FALSE, color = "blue") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "C67p - LL4 - Resíduos x Ajustados", x = "Valores ajustados", 
+  labs(title = "C67 PGPA - LL4\nResíduos x Ajustados", x = "Valores ajustados", 
        y = "Resíduos") +
   theme_minimal()
 
@@ -846,14 +879,14 @@ plot3 <- ggplot(C67p, aes(sample = residuals(C67p_SbIII.LL4, type = "studentised
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
-
-ggsave("Figures/Fit_C67p.png", plot)
+C67_PGPA_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C67_PGPA_AMA_SbIII
+ggsave("Figuras/Fit_C67_PGPA_AMA_SbIII.png", C67_PGPA_AMA_SbIII)
 
 plot1 <- ggplot(C68, aes(x = fitted(C68_SbIII.LL4), y = viability)) +
   geom_point(pch = 16, cex = 0.7) +
   geom_abline(intercept = 0, slope = 1) +
-  labs(title = " C68 - LL4 - Ajustados x Observados", x = "Valores ajustados", 
+  labs(title = " C68 - LL4\nAjustados x Observados", x = "Valores ajustados", 
        y = "Valores observados") +
   theme_minimal()
 
@@ -861,7 +894,7 @@ plot2 <- ggplot(C68, aes(x = fitted(C68_SbIII.LL4), y = residuals(C68_SbIII.LL4,
   geom_point(pch = 16, cex = 0.7) +
   geom_smooth(method = "loess", se = FALSE, color = "blue") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "C68 - LL4 - Resíduos x Ajustados", x = "Valores ajustados", 
+  labs(title = "C68 - LL4\nResíduos x Ajustados", x = "Valores ajustados", 
        y = "Resíduos") +
   theme_minimal()
 
@@ -871,7 +904,112 @@ plot3 <- ggplot(C68, aes(sample = residuals(C68_SbIII.LL4, type = "studentised")
   labs(title = "LL4", x = "Quantis teóricos", y = "Resíduos") +
   theme_minimal()
 
-dfit_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)
+C68_PGPA_AMA_SbIII <- (plot1+plot2+plot3) + plot_annotation(tag_levels = "A")
+C68_PGPA_AMA_SbIII 
+ggsave("Figuras/Fit_C68_PGPA_AMA_SbIII.png", C68_PGPA_AMA_SbIII )
 
-ggsave("Figures/Fit_C68.png", plot)
+#-------------------------------------------------------------
+
+# Gráfico definitivo 01 -----------------------
+DR_REF <- ggplot() +
+  geom_point(data = REF, aes(x = log(conc, 10), y = viability_normalized), size = 4, alpha = 0.7) +
+  geom_line(data = newdata_REF, aes(x = log(conc, 10), y = newdata_REF$viability_normalized), linewidth = 2) +
+  geom_errorbar(data = REF, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(8),
+                                ymax = mean_value_res + sd_value_res/sqrt(8)),  size = 2,width = 0.1)+
+  labs(x = "Log10 [   ] μM", y = "Viabilidade (%)") +
+  
+  theme_bw() +
+  theme(text = element_text(size = 30, face = "bold"))
+DR_REF 
+
+ggsave("Figures/DR_REF_SbIII.png", DR_REF)
+
+# Gráfico definitivo 2 -----------------------
+
+DR_Clones_GSH1 <- ggplot()+
+  # geom_point(data = GSH1, aes(x = log(conc, 10), y = viability_normalized)) +
+  # geom_line(data = newdata_GSH1, aes(x = log(conc, 10), y = newdata_GSH1$viability_normalized)) +
+  # geom_errorbar(data = GSH1, aes(x = log(conc, 10),
+  #                                ymin = mean_value_res - sd_value_res/sqrt(4),
+  #                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C6, aes(x = log(conc, 10), y = viability_normalized), alpha = 0.7, size = 3) +
+  geom_line(data = newdata_C6, aes(x = log(conc, 10), y = newdata_C6$viability_normalized), linewidth = 2) +
+  geom_errorbar(data = C6, aes(x = log(conc, 10),
+                               ymin = mean_value_res - sd_value_res/sqrt(4),
+                               ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C7, aes(x = log(conc, 10), y = viability_normalized),  alpha = 0.7,  size = 3) +
+  geom_line(data = newdata_C7, aes(x = log(conc, 10), y = newdata_C7$viability_normalized), linewidth = 2) +
+  geom_errorbar(data = C7, aes(x = log(conc, 10),
+                               ymin = mean_value_res - sd_value_res/sqrt(4),
+                               ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C44, aes(x = log(conc, 10), y = viability_normalized),  alpha = 0.7,  size = 3) +
+  geom_line(data = newdata_C44, aes(x = log(conc, 10), y = newdata_C44$viability_normalized), linewidth = 2) +
+  geom_errorbar(data = C44, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C58, aes(x = log(conc, 10), y = viability_normalized),  alpha = 0.7,  size = 3) +
+  geom_line(data = newdata_C58, aes(x = log(conc, 10), y = newdata_C58$viability_normalized), linewidth = 2) +
+  geom_errorbar(data = C58, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C73, aes(x = log(conc, 10), y = viability_normalized), alpha = 0.7,  size = 3) +
+  geom_line(data = newdata_C73, aes(x = log(conc, 10), y = newdata_C73$viability_normalized), linewidth = 2) +
+  geom_errorbar(data = C73, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C85, aes(x = log(conc, 10), y = viability_normalized),  alpha = 0.7,  size = 3) +
+  geom_line(data = newdata_C85, aes(x = log(conc, 10), y = newdata_C85$viability_normalized), linewidth = 2) +
+  geom_errorbar(data = C85, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C67, aes(x = log(conc, 10), y = viability_normalized),  alpha = 0.7, size = 3) +
+  geom_line(data = newdata_C67, aes(x = log(conc, 10), y = newdata_C67$viability_normalized), linewidth = 2) +
+  geom_errorbar(data = C67, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  
+  labs(x = "Log10 [   ] μM", y = "Viabilidade (%)") +
+  theme_bw() +
+  theme(text = element_text(size = 24, face = "bold"))+
+  facet_wrap(~pop, labeller = labeller(pop = c("C6" = "LiGSH1 C6 (+/-)",
+                                               "C7" = "LiGSH1 C7 (+/-)",
+                                               "C44" = "LiGSH1 C44 (+/-)",
+                                               "C58" = "LiGSH1 C58 (+/-)",
+                                               "C67" = "LiGSH1 C67 (+/-)",
+                                               "C73" = "LiGSH1 C73 (+/-)",
+                                               "C85" = "LiGSH1 C85 (+/-)")), nrow = 2)
+
+
+DR_Clones_GSH1
+
+ggsave("Figures/DR_Clones_GSH1_SbIII.png", DR_Clones_GSH1)
+
+
+DR_Clones_PGPA <- ggplot()+
+  geom_point(data = C76, aes(x = log(conc, 10), y = viability_normalized), alpha = 0.7, size = 3) +
+  geom_line(data = newdata_C76, aes(x = log(conc, 10), y = newdata_C76$viability_normalized),  linewidth = 2) +
+  geom_errorbar(data = C76, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C67p, aes(x = log(conc, 10), y = viability_normalized),alpha = 0.7, size = 3) +
+  geom_line(data = newdata_C67p, aes(x = log(conc, 10), y = newdata_C67p$viability_normalized),  linewidth = 2) +
+  geom_errorbar(data = C67p, aes(x = log(conc, 10),
+                                 ymin = mean_value_res - sd_value_res/sqrt(4),
+                                 ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C68, aes(x = log(conc, 10), y = viability_normalized),alpha = 0.7, size = 3) +
+  geom_line(data = newdata_C68, aes(x = log(conc, 10), y = newdata_C68$viability_normalized),  linewidth = 2) +
+  geom_errorbar(data = C68, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  labs(x = "Log10 [ ] μM", y = "Viabilidade (%)") +
+  theme_bw() +
+  theme(text = element_text(size = 24, face = "bold"))+
+  facet_wrap(~pop, labeller = labeller(pop = c("C76" = "LiPGPA C76 (+/-)",
+                                               "C67p" = "LiPGPA C67 (-/-)",
+                                               "C68" = "LiPGPA C68 (-/-)")), nrow = 1)
+DR_Clones_PGPA
+
+
+ggsave("Figures/DR_Clones_PGPA_SbIII.png", DR_Clones_PGPA)
 

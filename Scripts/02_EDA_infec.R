@@ -150,19 +150,31 @@ infectivity_plot_05 <- ggplot(dt, aes(reorder(pop,desc(mean_value)), mean_value)
   geom_bar(stat = "identity", aes(fill = mean_value), show.legend = FALSE) +
   geom_errorbar(aes(ymin = mean_value-sd_value, ymax=mean_value+sd_value),
                 width = 0.2) +
-  labs(x = "População", y = "Média de amastigotas por célula") +
+  labs(x = " ", y = "Média de amastigotas por célula") +
+  scale_x_discrete(labels = c("REF" = "LiWT\n(+/+)",
+                       "C6" = "LiGSH1\nC6\n(+/-)",
+                       "C7" = "LiGSH1\nC7\n(+/-)",
+                       "C44" = "LiGSH1\nC44\n(+/-)",
+                       "C58" = "LiGSH1\nC58\n(+/-)",
+                       "C67" = "LiGSH1\nC67\n(+/-)",
+                       "C73" = "LiGSH1\nC73\n(+/-)",
+                       "C85" = "LiGSH1\nC85\n(+/-)",
+                       "C89" = "LiGSH1\nC89\n(+/-)",
+                       "C76" = "LiPGPA\nC76\n(+/-)",
+                       "C67p" = "LiPGPA\nC67\n(-/-)",
+                       "C68" = "LiPGPA\nC68\n(-/-)"))+
   theme_bw()+
   geom_text(aes(label = cld, y = mean_value + sd_value), size = 10, vjust = -0.5) +
   ylim(0,30) 
   
 
-infectivity_plot_05+theme(plot.title = element_text(size = 18, face = "bold"),
-                          axis.text.x = element_text(size = 18, face = "bold"),
-                          axis.text.y = element_text(size = 18, face = "bold"),
-                          axis.title.x = element_text(size = 18, face = "bold"),
-                          axis.title.y = element_text(size = 18, face = "bold"),
-                          legend.text = element_text(size = 18),
-                          legend.title = element_text(size = 18,  face = "bold")
+infectivity_plot_05<- infectivity_plot_05+theme(plot.title = element_text(size = 24, face = "bold"),
+                          axis.text.x = element_text(size = 24, face = "bold"),
+                          axis.text.y = element_text(size = 24, face = "bold"),
+                          axis.title.x = element_text(size = 24, face = "bold"),
+                          axis.title.y = element_text(size = 24, face = "bold"),
+                          legend.text = element_text(size = 24),
+                          legend.title = element_text(size = 24,  face = "bold")
                           
 )
 
